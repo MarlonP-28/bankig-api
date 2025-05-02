@@ -76,4 +76,8 @@ public class MovimientoService {
     public List<Movimiento> getMovimientosByClienteIdAndFechaRange(Long clienteId, LocalDateTime startDate, LocalDateTime endDate) {
         return movimientoRepository.findByCuentaClienteClienteIdAndFechaBetween(clienteId, startDate, endDate);
     }
+
+    public List<Movimiento> getAllMovimientos() {
+    return movimientoRepository.findAll();
+    }
 }
