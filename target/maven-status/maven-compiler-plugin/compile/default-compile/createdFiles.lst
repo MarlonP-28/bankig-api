@@ -1,0 +1,10 @@
+com\example\bankingapi\model\Persona.class
+com\example\bankingapi\exception\ResourceNotFoundException.class
+com\example\bankingapi\exception\GlobalExceptionHandler.class
+com\example\bankingapi\exception\InsufficientFundsException.class
+com\example\bankingapi\model\Movimiento.class
+com\example\bankingapi\BankingApiApplication.class
+com\example\bankingapi\model\Cuenta.class
+com\example\bankingapi\dto\MovimientoDTO.class
+com\example\bankingapi\exception\GlobalExceptionHandler$ErrorDetails.class
+com\example\bankingapi\model\Cliente.class
