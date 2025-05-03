@@ -1,103 +1,158 @@
-# Banking API
+# API Bancaria
 
-This project implements a RESTful API for a simple banking system. It allows managing customers, accounts, and transactions.
+# Estructura del Proyecto
+banking-api/  (Root of the project)
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/example/bankingapi/  (Package root)
+│   │   │       ├── model/          // Entities
+│   │   │       │   ├── Persona.java
+│   │   │       │   ├── Cliente.java
+│   │   │       │   ├── Cuenta.java
+│   │   │       │   ├── Movimiento.java
+│   │   │       ├── repository/     // JPA Repositories
+│   │   │       │   ├── ClienteRepository.java
+│   │   │       │   ├── CuentaRepository.java
+│   │   │       │   ├── MovimientoRepository.java
+│   │   │       ├── service/        // Service Layer
+│   │   │       │   ├── ClienteService.java
+│   │   │       │   ├── CuentaService.java
+│   │   │       │   ├── MovimientoService.java
+│   │   │       ├── controller/     // REST Controllers
+│   │   │       │   ├── ClienteController.java
+│   │   │       │   ├── CuentaController.java
+│   │   │       │   ├── MovimientoController.java
+│   │   │       │   ├── ReporteController.java  // For F4
+│   │   │       ├── exception/      // Custom Exceptions
+│   │   │       │   ├── InsufficientFundsException.java
+│   │   │       │   ├── ResourceNotFoundException.java
+│   │   │       │   ├── GlobalExceptionHandler.java  // @ControllerAdvice
+│   │   │       ├── dto/            // Data Transfer Objects (Optional, but good practice)
+│   │   │       │   ├── MovimientoDTO.java // Example for Reporte
+│   │   │       ├── config/         // Configuration classes (e.g., for async)
+│   │   │       │   ├── AsyncConfig.java  // If using @Async
+│   │   │       ├── messaging/      //  For Async (SemiSenior/Senior)
+│   │   │       │   ├── MessageSender.java
+│   │   │       │   ├── MessageReceiver.java
+│   │   │       ├── BankingApiApplication.java  // Main Spring Boot app
+│   │   ├── resources/
+│   │   │   ├── application.properties  // Configuration
+│   │   │   └── data.sql              // Initial data (Optional)
+│   ├── test/
+│   │   ├── java/
+│   │   │   └── com/example/bankingapi/
+│   │   │       ├── controller/   // Controller tests
+│   │   │       │   ├── ClienteControllerTest.java
+│   │   │       ├── repository/   // Repository tests
+│   │   │       │   ├── ClienteRepositoryTest.java
+│   │   │       ├── service/      // Service tests (Optional)
+│   │   │           ├── ClienteServiceTest.java
+│   ├── docker/         // Docker related files
+│   │   ├── Dockerfile          // To containerize the app
+│   │   └── docker-compose.yml  // (Optional, for multiple services)
+├── pom.xml           // Maven build file (or build.gradle for Gradle)
+└── README.md         // Project documentation
 
-## Features
+Este proyecto implementa una API RESTful para un sistema bancario simple. Permite gestionar clientes, cuentas y transacciones.
 
-The API provides the following functionalities:
+## Características
 
-* **F1: CRUD Operations:** Create, Read, Update, and Delete operations for Customers, Accounts, and Transactions. [cite: 15, 16]
-* **F2: Transaction Management:** Records both deposits and withdrawals, updating account balances accordingly. [cite: 16, 17, 18]
-* **F3: Insufficient Funds Handling:** Returns an error message when a withdrawal exceeds the available balance ("Saldo no disponible"). [cite: 18]
-* **F4: Account Statements:** Generates reports of account activity within a specified date range for a given customer. [cite: 19, 20]
-* **F5: Unit Testing:** Includes unit tests for the Customer domain entity. [cite: 21]
-* **F6: Integration Testing:** Includes integration tests to validate the interaction of different components. [cite: 22]
-* **F7: Containerization:** The application can be deployed using Docker. [cite: 3, 10]
+La API ofrece las siguientes funcionalidades:
 
-## Technologies Used
+* **F1: Operaciones CRUD:** Crea, lee, actualiza y elimina operaciones para clientes, cuentas y transacciones. 
+* **F2: Gestión de Transacciones:** Registra depósitos y retiros, actualizando los saldos de las cuentas según corresponda. 
+* **F3: Manejo de Fondos Insuficientes:** Devuelve un mensaje de error cuando un retiro excede el saldo disponible ("Saldo no disponible"). 
+* **F4: Estados de Cuenta:** Genera informes de la actividad de la cuenta dentro de un rango de fechas específico para un cliente determinado. 
+* **F5: Pruebas Unitarias:** Incluye pruebas unitarias para la entidad de dominio "Cliente".
+* **F6: Pruebas de integración:** Incluye pruebas de integración para validar la interacción de diferentes componentes.
+* **F7: Contenerización:** La aplicación se puede implementar usando Docker.
 
-* Java Spring Boot [cite: 5]
-* JPA / Hibernate [cite: 2]
+## Tecnologías utilizadas
+
+* Java Spring Boot
+* JPA / Hibernate
 * Maven
-* H2 Database (for development) / PostgreSQL (for production)
+* Base de datos H2 (para desarrollo) / PostgreSQL (para producción)
 * Docker
-* Postman (for API testing) [cite: 5]
+* Postman (para pruebas de API)
 
-## Getting Started
+## Introducción
 
-### Prerequisites
+### Requisitos previos
 
-* Java JDK 11 or 17
-* Maven or Gradle
-* Docker (if you want to use Docker)
-* PostgreSQL (if you want to use PostgreSQL)
+* Java JDK 11 o 17
+* Maven o Gradle
+* Docker (si desea usar Docker)
+* PostgreSQL (si desea usar PostgreSQL)
 * Postman
 
-### Installation
+### Instalación
 
-1.  Clone the repository:
+1. Clonar el repositorio:
 
-    ```bash
-    git clone <repository_url>
-    cd banking-api
-    ```
+```bash
+git clone <repository_url>
+cd banking-api
+```
 
-2.  Configure the database:
+2. Configurar la base de datos:
 
-    * **H2 (Development):** No configuration needed.
-    * **PostgreSQL:**
-        * Create a database.
-        * Update `src/main/resources/application.properties` with your database credentials.
+* **H2 (Desarrollo):** No requiere configuración.
+* **PostgreSQL:**
+* Crear una base de datos.
+* Actualiza `src/main/resources/application.properties` con las credenciales de tu base de datos.
 
-3.  Build the application:
+3. Crea la aplicación:
 
-    ```bash
-    mvn clean install   #  Or 'gradle clean build'
-    ```
+```bash
+mvn clean install # O 'gradle clean build'
+```
 
-### Running the Application
+### Ejecutando la aplicación
 
-* **From your IDE:**
-    * Run the `BankingApiApplication.java` class.
-* **From the command line:**
+* **Desde tu IDE:**
+* Ejecuta la clase `BankingApiApplication.java`.
 
-    ```bash
-    java -jar target/banking-api-0.0.1-SNAPSHOT.jar  # Or the appropriate jar name
-    ```
+* **Desde la línea de comandos:**
 
-### Running with Docker
+```bash
+java -jar target/banking-api-0.0.1-SNAPSHOT.jar # O el nombre del archivo jar correspondiente
+```
 
-1.  Build the Docker image:
+### Ejecución con Docker
 
-    ```bash
-    docker build -t banking-api ./docker
-    ```
+1. Construir la imagen de Docker:
 
-2.  Run the Docker container:
+```bash
+docker build -t banking-api ./docker
+```
 
-    ```bash
-    docker run -p 8080:8080 banking-api
-    ```
+2. Ejecutar el contenedor de Docker:
 
-### API Endpoints
+```bash
+docker run -p 8080:8080 banking-api
+```
 
-The API endpoints are available at `http://localhost:8080` (or the appropriate host and port).
+### Puntos de conexión de la API
 
-* `/clientes` -  Manage customers
-* `/cuentas` - Manage accounts
-* `/movimientos` - Manage transactions
-* `/reportes` -  Generate account statements [cite: 16]
+Los puntos de conexión de la API están disponibles en `http://localhost:8080` (o en el host y puerto correspondientes).
 
-### Database Setup
+* `/clientes` - Gestionar clientes
+* `/cuentas` - Gestionar cuentas
+* `/movimientos` - Gestionar transacciones
+* `/reportes` - Generar estados de cuenta 
 
-The database schema is created by Spring Data JPA.  You may also find a `BaseDatos.sql` file (or `data.sql`) for initial data or schema setup. [cite: 33, 34]
+### Configuración de la base de datos
+
+El esquema de la base de datos lo crea Spring Data JPA. También puede encontrar el archivo `BaseDatos.sql` (o `data.sql`) para la configuración inicial de los datos o del esquema. 
 
 ### Postman
 
-A Postman collection is included for easy testing of the API endpoints. [cite: 34, 35]
+Se incluye una colección de Postman para facilitar las pruebas de los endpoints de la API. 
 
-### Notes
+### Notas
 
-* This project follows best practices, including the use of the Repository pattern and exception handling. [cite: 1, 2]
-* Error messages are handled to provide informative feedback. [cite: 2]
-* The solution is designed to be scalable and resilient. [cite: 10]
+* Este proyecto sigue las mejores prácticas, incluyendo el uso del patrón Repositorio y la gestión de excepciones. 
+* Los mensajes de error se gestionan para proporcionar información útil. 
+* La solución está diseñada para ser escalable y resiliente.
