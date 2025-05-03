@@ -28,10 +28,10 @@ public class MovimientoService {
     public Movimiento registrarMovimiento(Movimiento movimiento) {
         Cuenta cuenta = cuentaService.getCuentaById(movimiento.getCuenta().getId());
 
-        double saldoActual = cuenta.getSaldoInicial(); // Fetch the current balance
+        double saldoActual = cuenta.getSaldoInicial(); // Obtener el saldo actual
         double nuevoSaldo = saldoActual + movimiento.getValor();
 
-        if (nuevoSaldo < 0 && movimiento.getValor() < 0) { // Check for withdrawal
+        if (nuevoSaldo < 0 && movimiento.getValor() < 0) { // Comprobar si hay retiro
             throw new InsufficientFundsException("Saldo no disponible");
         }
 
@@ -39,8 +39,8 @@ public class MovimientoService {
         movimiento.setFecha(LocalDateTime.now());
         movimiento.setCuenta(cuenta);
 
-        cuenta.setSaldoInicial(nuevoSaldo); // Update account balance
-        cuentaService.updateCuenta(cuenta.getId(), cuenta); // Persist updated account
+        cuenta.setSaldoInicial(nuevoSaldo); // Actualizar el saldo de la cuenta
+        cuentaService.updateCuenta(cuenta.getId(), cuenta); // Mantener la cuenta actualizada
 
         return movimientoRepository.save(movimiento);
     }
@@ -51,12 +51,12 @@ public class MovimientoService {
 
     public Movimiento getMovimientoById(Long id) {
         return movimientoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Movimiento not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Movimiento no encontrado con id: " + id));
     }
 
     public Movimiento updateMovimiento(Long id, Movimiento movimientoDetails) {
         Movimiento movimiento = movimientoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Movimiento not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Movimiento no encontrado con id: " + id));
 
         movimiento.setFecha(movimientoDetails.getFecha());
         movimiento.setTipoMovimiento(movimientoDetails.getTipoMovimiento());
@@ -69,7 +69,7 @@ public class MovimientoService {
 
     public void deleteMovimiento(Long id) {
         Movimiento movimiento = movimientoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Movimiento not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Movimiento no encontrado con id: " + id));
         movimientoRepository.delete(movimiento);
     }
 

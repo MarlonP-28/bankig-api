@@ -24,19 +24,19 @@ public class CuentaService {
 
     public Cuenta getCuentaById(Long id) {
         return cuentaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cuenta not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Cuenta no encontrada con id: " + id));
     }
 
     public Cuenta createCuenta(Cuenta cuenta) {
         if (cuentaRepository.findByNumeroCuenta(cuenta.getNumeroCuenta()).isPresent()) {
-            throw new IllegalArgumentException("Cuenta with numeroCuenta " + cuenta.getNumeroCuenta() + " already exists");
+            throw new IllegalArgumentException("Cuenta con numeroCuenta " + cuenta.getNumeroCuenta() + " ya existe");
         }
         return cuentaRepository.save(cuenta);
     }
 
     public Cuenta updateCuenta(Long id, Cuenta cuentaDetails) {
         Cuenta cuenta = cuentaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cuenta not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Cuenta no encontrada con id: " + id));
 
         cuenta.setTipoCuenta(cuentaDetails.getTipoCuenta());
         cuenta.setSaldoInicial(cuentaDetails.getSaldoInicial());
@@ -48,7 +48,7 @@ public class CuentaService {
 
     public void deleteCuenta(Long id) {
         Cuenta cuenta = cuentaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cuenta not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Cuenta no encontrada con id: " + id));
         cuentaRepository.delete(cuenta);
     }
 

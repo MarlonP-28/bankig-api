@@ -17,11 +17,11 @@ public class Cuenta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Se requiere Numero Cuenta")
+    @NotBlank(message = "Se requiere Numero de Cuenta")
     @Column(unique = true)
     private String numeroCuenta;
 
-    @NotBlank(message = "Se requiere Tipo Cuenta")
+    @NotBlank(message = "Se requiere Tipo de Cuenta")
     private String tipoCuenta;
 
     @Min(value = 0, message = "El Saldo Inicial debe ser al menos 0")

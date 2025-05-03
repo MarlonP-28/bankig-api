@@ -19,24 +19,24 @@ public class Persona {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Nombre es requerido")
+    @NotBlank(message = "El Nombre es requerido")
     private String nombre;
 
-    @NotBlank(message = "Genero es requerido")
+    @NotBlank(message = "El Genero es requerido")
     private String genero;
 
     @Min(value = 18, message = "La edad debe ser al menos 18 años")
     private int edad;
 
-    @NotBlank(message = "Identificacion es requerido")
+    @NotBlank(message = "La Identificacion es requerido")
     @Size(min = 10, max = 13, message = "La identificación debe tener entre 10 y 13 caracteres.")
     @Column(unique = true)
     private String identificacion;
 
-    @NotBlank(message = "Direccion es requerido")
+    @NotBlank(message = "La Direccion es requerido")
     private String direccion;
 
-    @NotBlank(message = "Telefono es requerido")
+    @NotBlank(message = "El Telefono es requerido")
     private String telefono;
 
 }

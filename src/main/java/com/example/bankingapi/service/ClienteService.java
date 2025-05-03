@@ -24,19 +24,19 @@ public class ClienteService {
 
     public Cliente getClienteById(Long id) {
         return clienteRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con id: " + id));
     }
 
     public Cliente createCliente(Cliente cliente) {
         if (clienteRepository.findByIdentificacion(cliente.getIdentificacion()).isPresent()) {
-            throw new IllegalArgumentException("Cliente with identificacion " + cliente.getIdentificacion() + " already exists");
+            throw new IllegalArgumentException("Cliente con identificacion " + cliente.getIdentificacion() + " ya existe");
         }
         return clienteRepository.save(cliente);
     }
 
     public Cliente updateCliente(Long id, Cliente clienteDetails) {
         Cliente cliente = clienteRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con id: " + id));
 
         cliente.setNombre(clienteDetails.getNombre());
         cliente.setGenero(clienteDetails.getGenero());
@@ -51,12 +51,12 @@ public class ClienteService {
 
     public void deleteCliente(Long id) {
         Cliente cliente = clienteRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con id: " + id));
         clienteRepository.delete(cliente);
     }
 
     public Cliente getClienteByClienteId(Long clienteId) {
         return clienteRepository.findByClienteId(clienteId)
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente not found with clienteId: " + clienteId));
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con clienteId: " + clienteId));
     }
 }

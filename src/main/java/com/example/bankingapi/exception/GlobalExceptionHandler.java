@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    //  Inner class for ErrorDetails (you can also create this as a separate class)
+    //  Clase interna para ErrorDetails (también se puede crear como una clase separada)
     static class ErrorDetails {
         private int statusCode;
         private String message;

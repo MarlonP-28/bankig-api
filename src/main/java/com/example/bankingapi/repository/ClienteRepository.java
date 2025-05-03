@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-    Optional<Cliente> findByClienteId(Long clienteId);  // Example of a custom query
+    Optional<Cliente> findByClienteId(Long clienteId);  // Ejemplo de una consulta personalizada
     Optional<Cliente> findByIdentificacion(String identificacion);
 }

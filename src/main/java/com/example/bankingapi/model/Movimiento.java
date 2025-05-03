@@ -22,7 +22,7 @@ public class Movimiento {
     @NotNull
     private LocalDateTime fecha;
 
-    @NotBlank(message = "El Tipo Movimiento es requerido")
+    @NotBlank(message = "El Tipo de Movimiento es requerido")
     private String tipoMovimiento;
 
     @Min(value = 0, message = "El valor debe ser al menos 0")
