@@ -17,14 +17,14 @@ public class Cuenta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Numero Cuenta is required")
+    @NotBlank(message = "Se requiere Numero Cuenta")
     @Column(unique = true)
     private String numeroCuenta;
 
-    @NotBlank(message = "Tipo Cuenta is required")
+    @NotBlank(message = "Se requiere Tipo Cuenta")
     private String tipoCuenta;
 
-    @Min(value = 0, message = "Saldo Inicial must be at least 0")
+    @Min(value = 0, message = "El Saldo Inicial debe ser al menos 0")
     private double saldoInicial;
 
     private boolean estado;

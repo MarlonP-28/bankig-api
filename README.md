@@ -6,22 +6,22 @@ This project implements a RESTful API for a simple banking system. It allows man
 
 The API provides the following functionalities:
 
-* **F1: CRUD Operations:** Create, Read, Update, and Delete operations for Customers, Accounts, and Transactions.
-* **F2: Transaction Management:** Records both deposits and withdrawals, updating account balances accordingly.
-* **F3: Insufficient Funds Handling:** Returns an error message when a withdrawal exceeds the available balance ("Saldo no disponible").
-* **F4: Account Statements:** Generates reports of account activity within a specified date range for a given customer.
-* **F5: Unit Testing:** Includes unit tests for the Customer domain entity.
-* **F6: Integration Testing:** Includes integration tests to validate the interaction of different components.
-* **F7: Containerization:** The application can be deployed using Docker.
+* **F1: CRUD Operations:** Create, Read, Update, and Delete operations for Customers, Accounts, and Transactions. [cite: 15, 16]
+* **F2: Transaction Management:** Records both deposits and withdrawals, updating account balances accordingly. [cite: 16, 17, 18]
+* **F3: Insufficient Funds Handling:** Returns an error message when a withdrawal exceeds the available balance ("Saldo no disponible"). [cite: 18]
+* **F4: Account Statements:** Generates reports of account activity within a specified date range for a given customer. [cite: 19, 20]
+* **F5: Unit Testing:** Includes unit tests for the Customer domain entity. [cite: 21]
+* **F6: Integration Testing:** Includes integration tests to validate the interaction of different components. [cite: 22]
+* **F7: Containerization:** The application can be deployed using Docker. [cite: 3, 10]
 
 ## Technologies Used
 
-* Java Spring Boot
-* JPA / Hibernate
+* Java Spring Boot [cite: 5]
+* JPA / Hibernate [cite: 2]
 * Maven
 * H2 Database (for development) / PostgreSQL (for production)
 * Docker
-* Postman (for API testing)
+* Postman (for API testing) [cite: 5]
 
 ## Getting Started
 
@@ -77,3 +77,27 @@ The API provides the following functionalities:
 
     ```bash
     docker run -p 8080:8080 banking-api
+    ```
+
+### API Endpoints
+
+The API endpoints are available at `http://localhost:8080` (or the appropriate host and port).
+
+* `/clientes` -  Manage customers
+* `/cuentas` - Manage accounts
+* `/movimientos` - Manage transactions
+* `/reportes` -  Generate account statements [cite: 16]
+
+### Database Setup
+
+The database schema is created by Spring Data JPA.  You may also find a `BaseDatos.sql` file (or `data.sql`) for initial data or schema setup. [cite: 33, 34]
+
+### Postman
+
+A Postman collection is included for easy testing of the API endpoints. [cite: 34, 35]
+
+### Notes
+
+* This project follows best practices, including the use of the Repository pattern and exception handling. [cite: 1, 2]
+* Error messages are handled to provide informative feedback. [cite: 2]
+* The solution is designed to be scalable and resilient. [cite: 10]

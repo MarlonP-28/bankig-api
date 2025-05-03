@@ -22,10 +22,10 @@ public class Movimiento {
     @NotNull
     private LocalDateTime fecha;
 
-    @NotBlank(message = "Tipo Movimiento is required")
+    @NotBlank(message = "El Tipo Movimiento es requerido")
     private String tipoMovimiento;
 
-    @Min(value = 0, message = "Valor must be at least 0")
+    @Min(value = 0, message = "El valor debe ser al menos 0")
     private double valor;
 
     private double saldo;  // Saldo after the movement

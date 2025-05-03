@@ -16,7 +16,7 @@ public class Cliente extends Persona {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clienteId;
 
-    @NotBlank(message = "Contraseña is required")
+    @NotBlank(message = "Se requiere contraseña")
     private String contraseña;
 
     private boolean estado;
