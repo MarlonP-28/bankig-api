@@ -107,6 +107,9 @@ cd banking-api
 
 ```bash
 mvn clean install # O 'gradle clean build'
+# Si solo quieres compilar y generar el .jar aunque fallen los tests (por ejemplo, para usar con Docker):
+mvn clean package -DskipTests
+
 ```
 
 ### Ejecutando la aplicación
@@ -125,7 +128,7 @@ java -jar target/banking-api-0.0.1-SNAPSHOT.jar # O el nombre del archivo jar co
 1. Construir la imagen de Docker:
 
 ```bash
-docker build -t banking-api ./docker
+docker build -t banking-api .
 ```
 
 2. Ejecutar el contenedor de Docker:
