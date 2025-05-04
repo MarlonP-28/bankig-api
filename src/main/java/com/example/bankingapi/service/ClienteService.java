@@ -28,24 +28,43 @@ public class ClienteService {
     }
 
     public Cliente createCliente(Cliente cliente) {
+        // Verificar si el cliente ya existe
         if (clienteRepository.findByIdentificacion(cliente.getIdentificacion()).isPresent()) {
-            throw new IllegalArgumentException("Cliente con identificacion " + cliente.getIdentificacion() + " ya existe");
+            throw new IllegalArgumentException("Cliente con identificación " + cliente.getIdentificacion() + " ya existe");
         }
+        // Crear el nuevo cliente
         return clienteRepository.save(cliente);
     }
 
     public Cliente updateCliente(Long id, Cliente clienteDetails) {
+        // Obtener el cliente existente
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con id: " + id));
 
-        cliente.setNombre(clienteDetails.getNombre());
-        cliente.setGenero(clienteDetails.getGenero());
-        cliente.setEdad(clienteDetails.getEdad());
-        cliente.setDireccion(clienteDetails.getDireccion());
-        cliente.setTelefono(clienteDetails.getTelefono());
-        cliente.setContraseña(clienteDetails.getContraseña());
-        cliente.setEstado(clienteDetails.isEstado());
+        // Actualizar solo si los valores cambian
+        if (!cliente.getNombre().equals(clienteDetails.getNombre())) {
+            cliente.setNombre(clienteDetails.getNombre());
+        }
+        if (!cliente.getGenero().equals(clienteDetails.getGenero())) {
+            cliente.setGenero(clienteDetails.getGenero());
+        }
+        if (cliente.getEdad() != clienteDetails.getEdad()) {
+            cliente.setEdad(clienteDetails.getEdad());
+        }
+        if (!cliente.getDireccion().equals(clienteDetails.getDireccion())) {
+            cliente.setDireccion(clienteDetails.getDireccion());
+        }
+        if (!cliente.getTelefono().equals(clienteDetails.getTelefono())) {
+            cliente.setTelefono(clienteDetails.getTelefono());
+        }
+        if (!cliente.getContrasena().equals(clienteDetails.getContrasena())) {
+            cliente.setContrasena(clienteDetails.getContrasena());
+        }
+        if (cliente.isEstado() != clienteDetails.isEstado()) {
+            cliente.setEstado(clienteDetails.isEstado());
+        }
 
+        // Guardar los cambios
         return clienteRepository.save(cliente);
     }
 
@@ -55,8 +74,8 @@ public class ClienteService {
         clienteRepository.delete(cliente);
     }
 
-    public Cliente getClienteByClienteId(Long clienteId) {
-        return clienteRepository.findByClienteId(clienteId)
-                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con clienteId: " + clienteId));
+    public Cliente getClienteByClienteId(Long id) {
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Cliente no encontrado con clienteId: " + id));
     }
 }

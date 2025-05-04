@@ -12,13 +12,11 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cliente extends Persona {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long clienteId;
 
     @NotBlank(message = "Se requiere contraseña")
-    private String contraseña;
+    private String contrasena;
 
     private boolean estado;
 
+    // Puedes agregar más métodos si necesitas, como validaciones adicionales.
 }

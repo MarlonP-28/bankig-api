@@ -28,7 +28,7 @@ public class Movimiento {
     @Min(value = 0, message = "El valor debe ser al menos 0")
     private double valor;
 
-    private double saldo;  // Saldo after the movement
+    private double saldo;  // Saldo después del movimiento
 
     @ManyToOne
     @JoinColumn(name = "cuenta_id")

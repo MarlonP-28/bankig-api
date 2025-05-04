@@ -18,21 +18,21 @@ public class ClienteRepositoryTest {
     private ClienteRepository clienteRepository;
 
     @Test
-    public void whenFindByClienteId_thenReturnCliente() {
+    public void whenFindById_thenReturnCliente() {
         // Given
         Cliente cliente = new Cliente();
         cliente.setNombre("Test Cliente");
-        cliente.setClienteId(123L);
-        cliente.setContraseña("password");
+        //cliente.setId(123L);  // Cambié setClienteId por setId
+        cliente.setContrasena("password");
         cliente.setGenero("Masculino");
         cliente.setEdad(30);
         cliente.setIdentificacion("1234567890");
         cliente.setDireccion("Test Address");
         cliente.setTelefono("123-456-7890");
-        entityManager.persistAndFlush(cliente);
+        cliente = entityManager.persistAndFlush(cliente); // guarda y actualiza con el ID generado
 
         // When
-        Cliente foundCliente = clienteRepository.findByClienteId(cliente.getClienteId()).orElse(null);
+        Cliente foundCliente = clienteRepository.findById(cliente.getId()).orElse(null);  // Cambié findByClienteId por findById
 
         // Then
         assertThat(foundCliente).isNotNull();
@@ -44,20 +44,20 @@ public class ClienteRepositoryTest {
         // Given
         Cliente cliente = new Cliente();
         cliente.setNombre("Test Cliente");
-        cliente.setClienteId(123L);
-        cliente.setContraseña("password");
+        //cliente.setId(123L);  // Cambié setClienteId por setId
+        cliente.setContrasena("password");
         cliente.setGenero("Masculino");
         cliente.setEdad(30);
         cliente.setIdentificacion("1234567890");
         cliente.setDireccion("Test Address");
         cliente.setTelefono("123-456-7890");
-        entityManager.persistAndFlush(cliente);
+        cliente = entityManager.persistAndFlush(cliente);
 
         // When
         Cliente foundCliente = clienteRepository.findByIdentificacion("1234567890").orElse(null);
 
         // Then
         assertThat(foundCliente).isNotNull();
-        assertThat(foundCliente.getClienteId()).isEqualTo(cliente.getClienteId());
+        assertThat(foundCliente.getId()).isEqualTo(cliente.getId());  // Cambié getClienteId por getId
     }
 }

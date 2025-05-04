@@ -52,7 +52,7 @@ public class CuentaService {
         cuentaRepository.delete(cuenta);
     }
 
-    public List<Cuenta> getCuentasByClienteId(Long clienteId) {
-        return cuentaRepository.findByClienteClienteId(clienteId);
+    public List<Cuenta> getCuentasByClienteId(Long id) {
+        return cuentaRepository.findByClienteId(id);
     }
 }

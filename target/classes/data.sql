@@ -1,13 +1,18 @@
-INSERT INTO persona (dtype, id, nombre, genero, edad, identificacion, direccion, telefono) VALUES
-('Persona', 1, 'Jose Lema', 'Masculino', 29, '1726890985', 'Otavalo', '098254785'),
-('Persona', 2, 'Marianela Montalvo', 'Femenino', 35, '1725489658', 'Quito', '096315478');
+-- Personas que son clientes (DTYPE indica la subclase)
+INSERT INTO persona (id, nombre, genero, edad, identificacion, direccion, telefono, DTYPE)
+VALUES 
+(1, 'Juan Perez', 'Masculino', 30, '1234567890', 'Calle 1', '0991234567', 'Cliente'),
+(2, 'Maria Gomez', 'Femenino', 28, '0987654321', 'Calle 2', '0987654321', 'Cliente');
 
-INSERT INTO cliente (cliente_id, contraseña, estado, id) VALUES
-(1, '1234', TRUE, 1),
-(2, '5678', TRUE, 2);
+-- Cliente hereda de persona usando misma ID
+INSERT INTO cliente (id, contrasena, estado) VALUES 
+(1, 'clave123', TRUE),
+(2, 'clave456', TRUE);
 
-INSERT INTO cuenta (id, numero_cuenta, tipo_cuenta, saldo_inicial, estado, cliente_id) VALUES
-(1, '478758', 'Ahorro', 2000.00, TRUE, 1),
-(2, '225487', 'Corriente', 100.00, TRUE, 2),
-(3, '495878', 'Ahorros', 0.00, TRUE, 2),
-(4, '496825', 'Ahorros', 540.00, TRUE, 2);
+-- Cuentas asociadas a los clientes
+INSERT INTO cuenta (numero_cuenta, tipo_cuenta, saldo_inicial, estado, cliente_id)
+VALUES 
+('478758', 'Ahorro', 2000.00, TRUE, 1),
+('225487', 'Corriente', 100.00, TRUE, 2),
+('495878', 'Ahorros', 0.00, TRUE, 2),
+('496825', 'Ahorros', 540.00, TRUE, 2);

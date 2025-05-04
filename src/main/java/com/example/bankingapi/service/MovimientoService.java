@@ -26,27 +26,40 @@ public class MovimientoService {
 
     @Transactional
     public Movimiento registrarMovimiento(Movimiento movimiento) {
+        // Obtener la cuenta asociada al movimiento
         Cuenta cuenta = cuentaService.getCuentaById(movimiento.getCuenta().getId());
 
-        double saldoActual = cuenta.getSaldoInicial(); // Obtener el saldo actual
+        // Obtener el saldo actual de la cuenta
+        double saldoActual = cuenta.getSaldoInicial(); // Asegúrate de que esto sea el saldo actualizado
         double nuevoSaldo = saldoActual + movimiento.getValor();
 
-        if (nuevoSaldo < 0 && movimiento.getValor() < 0) { // Comprobar si hay retiro
+        // Validar si el saldo es suficiente para el retiro
+        if (nuevoSaldo < 0 && movimiento.getValor() < 0) { // Si es un retiro y el saldo es insuficiente
             throw new InsufficientFundsException("Saldo no disponible");
         }
 
+        // Actualizar el movimiento con la fecha y el saldo
         movimiento.setSaldo(nuevoSaldo);
         movimiento.setFecha(LocalDateTime.now());
         movimiento.setCuenta(cuenta);
 
-        cuenta.setSaldoInicial(nuevoSaldo); // Actualizar el saldo de la cuenta
-        cuentaService.updateCuenta(cuenta.getId(), cuenta); // Mantener la cuenta actualizada
+        // Actualizar el saldo de la cuenta
+        cuenta.setSaldoInicial(nuevoSaldo); // Aquí puedes usar el campo adecuado si no es saldoInicial
+        cuentaService.updateCuenta(cuenta.getId(), cuenta); // Actualizar la cuenta en la base de datos
 
+        // Guardar y retornar el movimiento
         return movimientoRepository.save(movimiento);
     }
 
+    private void validarSaldoSuficiente(Movimiento movimiento, double nuevoSaldo) {
+        if (movimiento.getValor() < 0 && nuevoSaldo < 0) { // Validar retiro sin fondos suficientes
+            throw new InsufficientFundsException("Saldo no disponible");
+        }
+    }
+
+    // Método modificado para utilizar el repositorio
     public List<Movimiento> getMovimientosByCuentaId(Long cuentaId) {
-        return movimientoRepository.findByCuentaId(cuentaId);
+        return movimientoRepository.findByCuentaId(cuentaId); // Asegúrate de que este método esté en el repositorio
     }
 
     public Movimiento getMovimientoById(Long id) {
@@ -73,11 +86,11 @@ public class MovimientoService {
         movimientoRepository.delete(movimiento);
     }
 
-    public List<Movimiento> getMovimientosByClienteIdAndFechaRange(Long clienteId, LocalDateTime startDate, LocalDateTime endDate) {
-        return movimientoRepository.findByCuentaClienteClienteIdAndFechaBetween(clienteId, startDate, endDate);
+    public List<Movimiento> getMovimientosByClienteIdAndFechaRange(Long id, LocalDateTime startDate, LocalDateTime endDate) {
+        return movimientoRepository.findByCuentaClienteIdAndFechaBetween(id, startDate, endDate);
     }
 
     public List<Movimiento> getAllMovimientos() {
-    return movimientoRepository.findAll();
+        return movimientoRepository.findAll();
     }
 }

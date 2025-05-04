@@ -35,7 +35,7 @@ public class ClienteControllerTest {
         // Given
         List<Cliente> clientes = new ArrayList<>();
         Cliente cliente1 = new Cliente();
-        cliente1.setClienteId(1L);
+        cliente1.setId(1L);  // Cambié setClienteId por setId
         cliente1.setNombre("Test Cliente 1");
         clientes.add(cliente1);
 
@@ -45,7 +45,8 @@ public class ClienteControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/clientes")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].nombre").value("Test Cliente 1"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].nombre").value("Test Cliente 1"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1));  // Cambié clienteId por id
     }
 
     @Test
@@ -53,7 +54,7 @@ public class ClienteControllerTest {
         // Given
         Cliente clienteToCreate = new Cliente();
         clienteToCreate.setNombre("New Cliente");
-        clienteToCreate.setContraseña("password");
+        clienteToCreate.setContrasena("password");
         clienteToCreate.setGenero("Masculino");
         clienteToCreate.setEdad(25);
         clienteToCreate.setIdentificacion("1112223334");
@@ -61,7 +62,7 @@ public class ClienteControllerTest {
         clienteToCreate.setTelefono("111-222-3333");
 
         Cliente createdCliente = new Cliente();
-        createdCliente.setClienteId(2L);
+        createdCliente.setId(2L);  // Cambié setClienteId por setId
         createdCliente.setNombre("New Cliente");
 
         when(clienteService.createCliente(any(Cliente.class))).thenReturn(createdCliente);
@@ -71,7 +72,8 @@ public class ClienteControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(clienteToCreate)))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.nombre").value("New Cliente"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.nombre").value("New Cliente"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2));  // Cambié clienteId por id
     }
 
     // Add more controller tests for update, delete, getById, etc.
