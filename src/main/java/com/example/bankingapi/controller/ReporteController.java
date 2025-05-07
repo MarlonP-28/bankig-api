@@ -25,11 +25,11 @@ public class ReporteController {
 
     @GetMapping
     public ResponseEntity<List<MovimientoDTO>> getEstadoDeCuenta(
-            @RequestParam("clienteId") Long clienteId,
+            @RequestParam("clienteId") Long id,
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
 
-        List<Movimiento> movimientos = movimientoService.getMovimientosByClienteIdAndFechaRange(clienteId, startDate, endDate);
+        List<Movimiento> movimientos = movimientoService.getMovimientosByClienteIdAndFechaRange(id, startDate, endDate);
 
         List<MovimientoDTO> movimientosDTO = movimientos.stream()
                 .map(MovimientoDTO::new)

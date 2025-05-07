@@ -15,7 +15,7 @@ public class MovimientoDTO {
 
     public MovimientoDTO(Movimiento movimiento) {
         this.fecha = movimiento.getFecha();
-        this.tipoMovimiento = movimiento.getTipoMovimiento();
+        this.tipoMovimiento = movimiento.getTipoMovimiento().name();;
         this.valor = movimiento.getValor();
         this.saldo = movimiento.getSaldo();
         this.numeroCuenta = movimiento.getCuenta().getNumeroCuenta();

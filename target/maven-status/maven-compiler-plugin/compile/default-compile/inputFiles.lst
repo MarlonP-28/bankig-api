@@ -7,6 +7,7 @@ C:\Users\pmarl\OneDrive\Desktop\banking-api\src\main\java\com\example\bankingapi
 C:\Users\pmarl\OneDrive\Desktop\banking-api\src\main\java\com\example\bankingapi\model\Cuenta.java
 C:\Users\pmarl\OneDrive\Desktop\banking-api\src\main\java\com\example\bankingapi\controller\MovimientoController.java
 C:\Users\pmarl\OneDrive\Desktop\banking-api\src\main\java\com\example\bankingapi\controller\ReporteController.java
+C:\Users\pmarl\OneDrive\Desktop\banking-api\src\main\java\com\example\bankingapi\model\TipoMovimiento.java
 C:\Users\pmarl\OneDrive\Desktop\banking-api\src\main\java\com\example\bankingapi\repository\MovimientoRepository.java
 C:\Users\pmarl\OneDrive\Desktop\banking-api\src\main\java\com\example\bankingapi\model\Cliente.java
 C:\Users\pmarl\OneDrive\Desktop\banking-api\src\main\java\com\example\bankingapi\messaging\MessageReceiver.java

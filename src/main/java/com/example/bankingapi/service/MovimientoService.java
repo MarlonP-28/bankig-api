@@ -26,28 +26,36 @@ public class MovimientoService {
 
     @Transactional
     public Movimiento registrarMovimiento(Movimiento movimiento) {
-        // Obtener la cuenta asociada al movimiento
+        // Obtener la cuenta
         Cuenta cuenta = cuentaService.getCuentaById(movimiento.getCuenta().getId());
 
-        // Obtener el saldo actual de la cuenta
-        double saldoActual = cuenta.getSaldoInicial(); // Asegúrate de que esto sea el saldo actualizado
-        double nuevoSaldo = saldoActual + movimiento.getValor();
+        double saldoActual = cuenta.getSaldoInicial();
+        double nuevoSaldo;
 
-        // Validar si el saldo es suficiente para el retiro
-        if (nuevoSaldo < 0 && movimiento.getValor() < 0) { // Si es un retiro y el saldo es insuficiente
-            throw new InsufficientFundsException("Saldo no disponible");
+        switch (movimiento.getTipoMovimiento()) {
+            case DEPOSITO:
+                nuevoSaldo = saldoActual + movimiento.getValor();
+                break;
+
+            case RETIRO:
+                if (movimiento.getValor() > saldoActual) {
+                    throw new InsufficientFundsException("Saldo no disponible para el retiro.");
+                }
+                nuevoSaldo = saldoActual - movimiento.getValor();
+                break;
+
+            default:
+                throw new IllegalArgumentException("Tipo de movimiento no válido.");
         }
 
-        // Actualizar el movimiento con la fecha y el saldo
+        // Actualizar y guardar
         movimiento.setSaldo(nuevoSaldo);
         movimiento.setFecha(LocalDateTime.now());
         movimiento.setCuenta(cuenta);
 
-        // Actualizar el saldo de la cuenta
-        cuenta.setSaldoInicial(nuevoSaldo); // Aquí puedes usar el campo adecuado si no es saldoInicial
-        cuentaService.updateCuenta(cuenta.getId(), cuenta); // Actualizar la cuenta en la base de datos
+        cuenta.setSaldoInicial(nuevoSaldo);
+        cuentaService.updateCuenta(cuenta.getId(), cuenta);
 
-        // Guardar y retornar el movimiento
         return movimientoRepository.save(movimiento);
     }
 
