@@ -276,7 +276,45 @@
 			}
 		  }
 		]
+	  },
+	  {
+		"name": "Reportes",
+		"item": [
+		  {
+			"name": "Reporte por Cliente (GET /reportes/cliente/{clienteId})",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "http://localhost:8080/reportes/cliente/{{clienteId}}?fechaInicio=2024-01-01&fechaFin=2024-12-31",
+				"protocol": "http",
+				"host": ["localhost"],
+				"port": "8080",
+				"path": ["reportes", "cliente", "{{clienteId}}"],
+				"query": [
+				  { "key": "fechaInicio", "value": "2024-01-01" },
+				  { "key": "fechaFin", "value": "2024-12-31" }
+				]
+			  }
+			}
+		  },
+		  {
+			"name": "Reporte por Cuenta (GET /reportes/cuenta/{cuentaId})",
+			"request": {
+			  "method": "GET",
+			  "header": [],
+			  "url": {
+				"raw": "http://localhost:8080/reportes/cuenta/{{cuentaId}}",
+				"protocol": "http",
+				"host": ["localhost"],
+				"port": "8080",
+				"path": ["reportes", "cuenta", "{{cuentaId}}"]
+			  }
+			}
+		  }
+		]
 	  }
+	  
 	]
   }
   
